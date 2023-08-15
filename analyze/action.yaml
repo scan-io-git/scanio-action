@@ -8,7 +8,7 @@ inputs:
   checkout_path:
     description: "The path at which the analyzed repository was checked out. Used to relativize any absolute paths in the uploaded SARIF file."
     required: false
-    default: ${{ github.workspace }}
+    default: '.'  # ${{ github.workspace }}
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/scan-io-git/scan-io:main'
