@@ -3,11 +3,8 @@ description: 'scanio description'
 inputs:
   scanner:  # scanner to use for analysis
     description: 'scanner to use for analysis'
-    required: true
+    required: false
     default: 'semgrep'
-# outputs:
-#   time: # id of output
-#     description: 'The time we greeted you'
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/scan-io-git/scan-io:main'
@@ -15,4 +12,6 @@ runs:
     - analyse
     - '--scanner'
     - ${{ inputs.scanner }}
-    - '.'
+    - '--format'
+    - sarif
+    - ${{ github.workspace }}
