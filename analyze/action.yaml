@@ -11,7 +11,7 @@ inputs:
     default: '.'  # ${{ github.workspace }}
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/scan-io-git/scan-io:main'
+  image: 'docker://ghcr.io/scan-io-git/scan-io:v0.2.0'
   args:
     - analyse
     - '--scanner'
