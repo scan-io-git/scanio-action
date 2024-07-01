@@ -1,0 +1,18 @@
+name: 'scanio to-html'
+description: 'convert scanio SARIF output to HTML'
+inputs:
+  input:  # path to the SARIF file to convert
+    description: 'path to the SARIF file to convert'
+    required: true
+  output:  # path to write the HTML output to
+    description: 'path to write the HTML output to'
+    required: true
+runs:
+  using: 'docker'
+  image: 'docker://ghcr.io/scan-io-git/scan-io:v0.2.0'
+  args:
+    - to-html
+    - '-i'
+    - ${{ inputs.input }}
+    - -o
+    - ${{ inputs.output }}
