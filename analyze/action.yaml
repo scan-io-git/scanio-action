@@ -13,13 +13,20 @@ inputs:
     description: 'format of the output'
     required: false
     default: 'sarif'
+  extra_args:
+    description: 'Additional arguments to pass to the command'
+    required: false
+    default: ''
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/scan-io-git/scan-io:v0.2.0'
+  entrypoint: '/bin/sh'
   args:
-    - analyse
-    - '--scanner'
-    - ${{ inputs.scanner }}
-    - '--format'
-    - ${{ inputs.format }}
-    - ${{ inputs.checkout_path }}
+    - '-c'
+    - |
+      set -e
+      ARGS="analyse --scanner ${{ inputs.scanner }} --format ${{ inputs.format }} ${{ inputs.checkout_path }}"
+      if [ -n "${{ inputs.extra_args }}" ]; then
+        ARGS="$ARGS -- ${{ inputs.extra_args }}"
+      fi
+      exec scanio $ARGS
