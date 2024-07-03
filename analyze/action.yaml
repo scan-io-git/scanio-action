@@ -9,6 +9,10 @@ inputs:
     description: "The path at which the analyzed repository was checked out. Used to relativize any absolute paths in the uploaded SARIF file."
     required: false
     default: '.'  # ${{ github.workspace }}
+  format:  # format of the output
+    description: 'format of the output'
+    required: false
+    default: 'sarif'
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/scan-io-git/scan-io:v0.2.0'
@@ -17,5 +21,5 @@ runs:
     - '--scanner'
     - ${{ inputs.scanner }}
     - '--format'
-    - sarif
+    - ${{ inputs.format }}
     - ${{ inputs.checkout_path }}
